@@ -46,8 +46,22 @@ const faqSchema = {
   description="Play The Endless Dive Game online for free! Enter rare trivia answers to dive your submarine to 11,000m. Daily clues, prompt solver, and crowd trap cheatsheet."
   schema={{ ...faqSchema }}
 >
-  <div class="py-4 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-8">
+  <div class="py-4 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-6">
     
+    <!-- Hero H1 Section -->
+    <div class="space-y-2">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0a1d36] border border-[#4de3ff]/30 text-[#4de3ff] text-xs font-mono uppercase tracking-wider">
+        <span class="w-2 h-2 rounded-full bg-[#4de3ff] animate-pulse"></span>
+        Submersible Abyss Simulator
+      </div>
+      <h1 class="text-2xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight">
+        The Endless Dive: Submerge into the 10,928m Abyss
+      </h1>
+      <p class="text-xs sm:text-sm text-[#8fa3c4] max-w-3xl leading-relaxed">
+        Test your knowledge of the obscure against crushing deep-sea pressure. In this reverse-trivia submarine simulator, your depth is determined by how rare your answers are. Avoid popular guesses to reach the Challenger Deep.
+      </p>
+    </div>
+
     <!-- TOP PLAYABLE GAME VIEWPORT (INSTANT PLAY AT TOP) -->
     <div id="game-arena" class="rounded-3xl bg-[#0a1d36] border border-[#4de3ff]/30 p-2 sm:p-3 shadow-2xl overflow-hidden">
       <!-- Game Action Bar -->
