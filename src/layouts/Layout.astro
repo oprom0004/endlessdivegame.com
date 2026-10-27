@@ -1,0 +1,164 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+  canonical?: string;
+  schema?: Record<string, any>;
+}
+
+const {
+  title = "The Endless Dive Game | Play Infinite Deep Sea Word Trivia Online",
+  description = "Play The Endless Dive Game online for free. The viral oceanic trench game where the rarest trivia answers dive your submarine down into the 11,000m abyss.",
+  canonical = Astro.url.pathname,
+  schema
+} = Astro.props;
+
+const siteUrl = "https://endlessdivegame.com";
+const currentUrl = `${siteUrl}${canonical}`;
+const gscToken = "5JmWeMOn_UPE-kAXBY5DKtkd9olU2fpJxtnMqUr5kpE";
+const umamiId = "ecceb818-829e-4d2a-9811-75e256228bd7";
+
+const defaultSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": `${siteUrl}/#website`,
+      "url": siteUrl,
+      "name": "The Endless Dive Game",
+      "description": "Play The Endless Dive Game online.",
+      "publisher": { "@type": "Organization", "name": "Endless Dive Guild", "url": siteUrl }
+    },
+    {
+      "@type": "VideoGame",
+      "@id": `${siteUrl}/#game`,
+      "name": "The Endless Dive Game",
+      "url": siteUrl,
+      "description": "Infinite deep sea reverse trivia word game where obscurity takes you to the bottom of the ocean.",
+      "genre": ["Reverse Trivia", "Puzzle", "Word Game"]
+    }
+  ]
+};
+
+const finalSchema = schema || defaultSchema;
+---
+
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="google-site-verification" content={gscToken} />
+    <link rel="canonical" href={currentUrl} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={currentUrl} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:site_name" content="The Endless Dive Game" />
+
+    <!-- Umami Analytics -->
+    <script defer src="https://cloud.umami.is/script.js" data-website-id={umamiId}></script>
+
+    <!-- Schema.org -->
+    <script type="application/ld+json" set:html={JSON.stringify(finalSchema)} />
+  </head>
+  <body class="bg-[#020611] text-slate-100 min-h-screen flex flex-col font-sans selection:bg-[#4de3ff]/30 selection:text-white">
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-[#061325]/90 backdrop-blur-md border-b border-white/10">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+        <a href="/" class="flex items-center gap-2.5 group">
+          <div class="w-9 h-9 rounded-xl bg-[#0a1d36] border border-[#4de3ff]/40 flex items-center justify-center text-[#4de3ff] font-mono font-bold text-base group-hover:border-[#4de3ff] transition-all">
+            ⚓
+          </div>
+          <div class="flex flex-col">
+            <span class="text-base font-black tracking-tight text-white flex items-center gap-1.5">
+              <span>ENDLESS DIVE</span>
+              <span class="text-[#4de3ff]">GAME</span>
+            </span>
+            <span class="text-[9px] font-mono text-[#ffd166] uppercase tracking-wider">Infinite Abyss Simulator</span>
+          </div>
+        </a>
+
+        <nav class="hidden md:flex items-center gap-1 text-xs font-mono">
+          <a href="/" class="px-3 py-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-white/5 transition-all">Play Game</a>
+          <a href="/depth-zones/" class="px-3 py-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-white/5 transition-all">Depth Zones</a>
+          <a href="/high-scores/" class="px-3 py-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-white/5 transition-all">Leaderboard</a>
+          <a href="/survival-guide/" class="px-3 py-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-white/5 transition-all">Survival Guide</a>
+          <a href="/modes-explained/" class="px-3 py-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-white/5 transition-all">Game Modes</a>
+        </nav>
+
+        <div class="flex items-center gap-3">
+          <a
+            href="https://endlessdive.com"
+            target="_blank"
+            class="hidden sm:inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-[#0a1d36] border border-white/10 text-xs text-[#8fa3c4] hover:text-white transition-all font-mono"
+          >
+            <span>Main Dive Portal</span>
+            <span class="text-[#ffd166]">↗</span>
+          </a>
+          <a
+            href="/"
+            class="px-4 py-2 rounded-xl bg-[#4de3ff] hover:bg-[#4de3ff]/90 text-slate-950 font-black text-xs transition-all shadow-md font-mono"
+          >
+            SUBMERGE
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <main class="flex-1">
+      <slot />
+    </main>
+
+    <footer class="bg-[#061325] border-t border-white/10 py-10 px-4 sm:px-6 lg:px-8 mt-16 text-xs text-[#8fa3c4]">
+      <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div class="space-y-3">
+          <div class="flex items-center gap-2 text-white font-black">
+            <span>⚓</span>
+            <span>EndlessDiveGame.com</span>
+          </div>
+          <p class="text-[11px] leading-relaxed">
+            The dedicated standalone game portal for The Endless Dive. Pure submarine gameplay without editorial clutter. Aim for the Challenger Deep at 10,928m.
+          </p>
+        </div>
+
+        <div>
+          <h4 class="text-white font-mono font-bold text-xs uppercase tracking-wider mb-3">Bathymetric Cluster</h4>
+          <ul class="space-y-2 font-mono text-[11px]">
+            <li><a href="/" class="hover:text-[#4de3ff]">Play Endless Mode</a></li>
+            <li><a href="/depth-zones/" class="hover:text-[#4de3ff]">Depth Zones (0-11,000m)</a></li>
+            <li><a href="/high-scores/" class="hover:text-[#4de3ff]">High Scores & Records</a></li>
+            <li><a href="/survival-guide/" class="hover:text-[#4de3ff]">Submarine Survival Guide</a></li>
+            <li><a href="/modes-explained/" class="hover:text-[#4de3ff]">Endless vs Daily</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-white font-mono font-bold text-xs uppercase tracking-wider mb-3">Dive Matrix</h4>
+          <ul class="space-y-2 font-mono text-[11px]">
+            <li><a href="https://endlessdive.com" target="_blank" class="hover:text-[#4de3ff]">EndlessDive.com</a></li>
+            <li><a href="https://endlessdivequiz.com" target="_blank" class="hover:text-[#4de3ff]">EndlessDiveQuiz.com</a></li>
+            <li><a href="https://theendlessdive.com" target="_blank" class="hover:text-[#4de3ff]">TheEndlessDive.com</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-white font-mono font-bold text-xs uppercase tracking-wider mb-3">Abyssal Physics</h4>
+          <p class="text-[11px] leading-relaxed mb-2">
+            Every answer pushes the submarine hull against increasing barometric pressure. Obscure knowledge is oxygen.
+          </p>
+          <span class="text-[10px] text-[#ffd166] font-mono">Challenger Deep Standard</span>
+        </div>
+      </div>
+      <div class="max-w-7xl mx-auto border-t border-white/5 mt-8 pt-6 flex flex-col sm:flex-row items-center justify-between text-[10px]">
+        <span>© 2026-2027 EndlessDiveGame.com. All rights reserved.</span>
+        <span>HTML5 Submersible Simulation</span>
+      </div>
+    </footer>
+  </body>
+</html>

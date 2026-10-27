@@ -1,0 +1,149 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const depthZones = [
+  {
+    name: "Epipelagic Zone (Sunlight Layer)",
+    depth: "0m – 200m",
+    pressure: "1 – 21 ATM (up to 308 PSI)",
+    light: "100% – 1% (Photosynthesis Active)",
+    temp: "24°C – 18°C",
+    fauna: "Dolphins, Bluefin Tuna, Sea Turtles, Phytoplankton",
+    hullReq: "Standard Commercial Submersible Hull",
+    gameStrategy: "The Surface Crowd Trap Zone. Answers chosen by over 25% of players keep your vessel stranded in this layer. You must immediately deploy obscure knowledge to break through the 200m thermocline boundary."
+  },
+  {
+    name: "Mesopelagic Zone (Twilight Layer)",
+    depth: "200m – 1,000m",
+    pressure: "21 – 101 ATM (308 – 1,484 PSI)",
+    light: "1% – 0.001% (Faint Blue Shimmer)",
+    temp: "18°C – 5°C",
+    fauna: "Lanternfish, Barreleye Fish, Hatchetfish, Bigfin Squid",
+    hullReq: "Reinforced HY-80 Steel Pressure Hull",
+    gameStrategy: "The Transition Layer. Answers with 10% to 25% submission frequency hover here. To descend further, stop submitting familiar pop-culture trivia and pivot toward historical dates and scientific terminology."
+  },
+  {
+    name: "Bathypelagic Zone (Midnight Layer)",
+    depth: "1,000m – 4,000m",
+    pressure: "101 – 401 ATM (1,484 – 5,893 PSI)",
+    light: "0% (Perpetual Absolute Darkness)",
+    temp: "5°C – 2°C",
+    fauna: "Vampire Squid, Gulper Eel, Anglerfish, Giant Isopod",
+    hullReq: "High-Strength Titanium Alloy Sphere (Grade 5)",
+    gameStrategy: "The Deep Water Threshold. Requires answers submitted by 3.5% to 10% of players. Pressure begins to tax your submarine ballast; single common mistakes result in catastrophic buoyancy blow-outs."
+  },
+  {
+    name: "Abyssopelagic Zone (The Ocean Abyss)",
+    depth: "4,000m – 6,000m",
+    pressure: "401 – 601 ATM (5,893 – 8,832 PSI)",
+    light: "0% (Only Bioluminescent Flashes)",
+    temp: "2°C – 1°C",
+    fauna: "Dumbo Octopus, Faceless Cusk, Deep-sea Anemones, Sea Pigs",
+    hullReq: "Thick Cast-Titanium Capsule (60mm+ thickness)",
+    gameStrategy: "Extreme Depths. Covers the vast abyssal plains of the Pacific floor. Only submissions under 3.5% frequency survive. You must rely on deep geography (micronations, island enclaves) and obscure literature."
+  },
+  {
+    name: "Hadopelagic Zone (Trench Trenches & Challenger Deep)",
+    depth: "6,000m – 11,034m",
+    pressure: "601 – 1,086 ATM (8,832 – 15,960 PSI)",
+    light: "0% (Complete Void)",
+    temp: "1°C – 4°C (Hydrothermal Vents)",
+    fauna: "Pseudoliparis swirei (Mariana Snailfish), Supergiant Amphipods, Xenophyophores",
+    hullReq: "Specialized Deepsea Challenger Syntactic Foam & Forged Steel Sphere",
+    gameStrategy: "The Ultimate Victory Zone. Found only in deep oceanic trenches (Mariana, Kermadec, Puerto Rico). Over 1,000 atmospheres of pressure will crush any vessel that enters an answer above 1.2% global popularity."
+  }
+];
+
+const breadcrumbs = [
+  { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://endlessdivegame.com/" },
+  { "@type": "ListItem", "position": 2, "name": "Depth Zones", "item": "https://endlessdivegame.com/depth-zones/" }
+];
+---
+
+<Layout
+  title="The 5 Oceanic Depth Zones Guide | The Endless Dive Game"
+  description="Explore the complete scientific and gameplay breakdown of all 5 ocean depth zones, from the 200m Sunlight layer to the 11,000m Challenger Deep trench."
+  canonical="/depth-zones/"
+>
+  <div class="py-8 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto space-y-12">
+    
+    <!-- Header -->
+    <div class="space-y-3 border-b border-white/10 pb-6">
+      <div class="inline-flex items-center gap-2 text-xs font-mono font-bold text-[#4de3ff]">
+        <span>🌊 OCEANOGRAPHIC ENCYCLOPEDIA</span>
+        <span>•</span>
+        <span>0m TO 11,034m DIVE MAP</span>
+      </div>
+      <h1 class="text-3xl sm:text-5xl font-black text-white">
+        The 5 Oceanic Depth Zones in The Endless Dive
+      </h1>
+      <p class="text-xs sm:text-sm text-[#8fa3c4] leading-relaxed max-w-3xl">
+        Every meter of descent in The Endless Dive mirrors real-world oceanography. As you answer obscure category prompts, your vessel plunges through 5 distinct ecological and physical layers. Learn the pressure thresholds and biological milestones of each depth tier.
+      </p>
+    </div>
+
+    <!-- The 5 Depth Zones Cards -->
+    <div class="space-y-6">
+      {depthZones.map((z, idx) => (
+        <div class="p-6 sm:p-8 rounded-3xl bg-[#0a1d36] border border-white/10 space-y-4 shadow-xl">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-white/10 pb-4">
+            <div class="flex items-center gap-3">
+              <span class="w-8 h-8 rounded-xl bg-[#061325] border border-white/10 flex items-center justify-center font-mono font-bold text-[#4de3ff] text-xs">
+                0{idx + 1}
+              </span>
+              <h2 class="text-xl font-bold text-white">{z.name}</h2>
+            </div>
+            <span class="text-sm font-mono font-black text-[#ffd166]">
+              {z.depth}
+            </span>
+          </div>
+
+          <!-- Specs Grid -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs font-mono">
+            <div class="p-3 rounded-xl bg-[#061325] border border-white/5 space-y-1">
+              <span class="text-[10px] text-[#8fa3c4] block uppercase">Hydrostatic Pressure</span>
+              <span class="text-slate-200 font-bold">{z.pressure}</span>
+            </div>
+            <div class="p-3 rounded-xl bg-[#061325] border border-white/5 space-y-1">
+              <span class="text-[10px] text-[#8fa3c4] block uppercase">Light Penetration</span>
+              <span class="text-[#4de3ff] font-bold">{z.light}</span>
+            </div>
+            <div class="p-3 rounded-xl bg-[#061325] border border-white/5 space-y-1">
+              <span class="text-[10px] text-[#8fa3c4] block uppercase">Water Temperature</span>
+              <span class="text-emerald-400 font-bold">{z.temp}</span>
+            </div>
+            <div class="p-3 rounded-xl bg-[#061325] border border-white/5 space-y-1">
+              <span class="text-[10px] text-[#8fa3c4] block uppercase">Submarine Spec</span>
+              <span class="text-[#ffd166] font-bold truncate block">{z.hullReq}</span>
+            </div>
+          </div>
+
+          <!-- Description & Strategy -->
+          <div class="space-y-2 text-xs sm:text-sm text-slate-300">
+            <div>
+              <strong class="text-white">Resident Fauna: </strong>
+              <span class="text-[#8fa3c4]">{z.fauna}</span>
+            </div>
+            <div class="pt-2 border-t border-white/5">
+              <strong class="text-[#ffd166]">Trench Strategy: </strong>
+              <span class="text-[#8fa3c4] leading-relaxed">{z.gameStrategy}</span>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Navigation Footer -->
+    <div class="border-t border-white/10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono">
+      <a href="/" class="text-[#4de3ff] hover:underline flex items-center gap-1">
+        <span>← Back to The Endless Dive Arena</span>
+      </a>
+      <div class="flex items-center gap-4 text-[#8fa3c4]">
+        <a href="/survival-guide/" class="hover:text-white">Survival Guide ↗</a>
+        <a href="/high-scores/" class="hover:text-white">Hall of Fame ↗</a>
+        <a href="/modes-explained/" class="hover:text-white">Game Modes ↗</a>
+      </div>
+    </div>
+
+  </div>
+</Layout>

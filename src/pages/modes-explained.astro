@@ -1,0 +1,149 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const modes = [
+  {
+    name: "Endless Exploration Mode",
+    badge: "Most Popular",
+    badgeColor: "border-[#4de3ff]/40 text-[#4de3ff] bg-[#4de3ff]/10",
+    timer: "None (Meditative)",
+    strikes: "3 Hull Fractures",
+    scoring: "Standard Inverse Decay (1x)",
+    leaderboard: "Global Career Records",
+    desc: "The standard procedural dive. Descend as deep as humanly possible through infinite category prompts. There is no time pressure—take your time to recall the most obscure, sub-1% answers in your memory."
+  },
+  {
+    name: "Daily Seeded Trench Challenge",
+    badge: "Competitive",
+    badgeColor: "border-[#ffd166]/40 text-[#ffd166] bg-[#ffd166]/10",
+    timer: "60s per Prompt",
+    strikes: "2 Hull Fractures",
+    scoring: "Seeded Community Multiplier (1.5x)",
+    leaderboard: "Daily 24-Hour Reset Board",
+    desc: "A synchronized global expedition that resets every night at 00:00 UTC. Every player worldwide receives the exact same 10 category prompts. Compare your final trench depth against friends and international pilots."
+  },
+  {
+    name: "Oxygen Sprint (Time Attack)",
+    badge: "High Adrenaline",
+    badgeColor: "border-rose-400/40 text-rose-300 bg-rose-950/40",
+    timer: "20s Rapid Countdown",
+    strikes: "1 Hull Fracture",
+    scoring: "Velocity Bonus (Up to 2.5x)",
+    leaderboard: "Speedrun Any% Hall of Fame",
+    desc: "Rapid-fire trivia under extreme pressure. Your life support oxygen depletes continuously. Every second saved awards bonus descent velocity, but rushing increases your risk of submitting fatal crowd traps."
+  },
+  {
+    name: "Iron-Hull Hardcore (Permadeath)",
+    badge: "Extreme Hardcore",
+    badgeColor: "border-red-600/40 text-red-400 bg-red-950/40",
+    timer: "45s per Prompt",
+    strikes: "Zero Tolerance (1 Strike Implosion)",
+    scoring: "Hardcore Multiplier (3.0x)",
+    leaderboard: "Pristine Hull Registry",
+    desc: "The ultimate bathyscaphe test. A single typo, invalid entry, or crowd trap (>20% popularity) triggers instantaneous hull implosion and wipes your career descent. Designed strictly for trivia grandmasters."
+  },
+  {
+    name: "Relaxed Marine Discovery",
+    badge: "Educational",
+    badgeColor: "border-emerald-400/40 text-emerald-300 bg-emerald-950/40",
+    timer: "Disabled",
+    strikes: "Infinite",
+    scoring: "Unranked",
+    leaderboard: "None (Zen Mode)",
+    desc: "A serene, stress-free mode with zero fail states. Explore the oceanic depth layers, examine bioluminescent deep-sea creatures, and experiment with answers while learning real marine biology facts."
+  }
+];
+
+const breadcrumbs = [
+  { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://endlessdivegame.com/" },
+  { "@type": "ListItem", "position": 2, "name": "Modes Explained", "item": "https://endlessdivegame.com/modes-explained/" }
+];
+---
+
+<Layout
+  title="All 5 Game Modes Explained | The Endless Dive Game"
+  description="Compare all game modes in The Endless Dive: Endless Exploration, Daily Seeded Trench, Oxygen Sprint, Permadeath Iron-Hull, and Relaxed Discovery."
+  canonical="/modes-explained/"
+>
+  <div class="py-8 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto space-y-12">
+    
+    <!-- Header -->
+    <div class="space-y-3 border-b border-white/10 pb-6">
+      <div class="inline-flex items-center gap-2 text-xs font-mono font-bold text-[#ffd166]">
+        <span>⚙️ EXPEDITION PROFILES</span>
+        <span>•</span>
+        <span>GAMEPLAY MODES GUIDE</span>
+      </div>
+      <h1 class="text-3xl sm:text-5xl font-black text-white">
+        The Endless Dive: All 5 Game Modes Explained
+      </h1>
+      <p class="text-xs sm:text-sm text-[#8fa3c4] leading-relaxed max-w-3xl">
+        Whether you prefer a peaceful contemplative dive through marine ecosystems, an intense daily battle for global leaderboard supremacy, or a brutal zero-tolerance permadeath simulation, The Endless Dive features specialized modes tailored to your playstyle.
+      </p>
+    </div>
+
+    <!-- Comparative Table -->
+    <div class="p-6 sm:p-8 rounded-3xl bg-[#0a1d36] border border-white/10 space-y-6">
+      <div class="border-b border-white/10 pb-4">
+        <h2 class="text-xl font-bold text-white">Mode Rules & Difficulty Matrix</h2>
+      </div>
+
+      <div class="overflow-x-auto rounded-2xl border border-white/10">
+        <table class="w-full text-left text-xs border-collapse">
+          <thead>
+            <tr class="bg-[#061325] text-[#8fa3c4] font-mono uppercase border-b border-white/10">
+              <th class="py-3 px-4">Game Mode</th>
+              <th class="py-3 px-4">Timer Speed</th>
+              <th class="py-3 px-4">Hull Tolerance</th>
+              <th class="py-3 px-4 text-[#ffd166]">Depth Multiplier</th>
+              <th class="py-3 px-4">Leaderboard</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-white/5 font-mono">
+            {modes.map(m => (
+              <tr class="hover:bg-white/5">
+                <td class="py-3.5 px-4 font-bold text-white font-sans text-sm">
+                  <span>⚓ {m.name}</span>
+                </td>
+                <td class="py-3.5 px-4 text-[#4de3ff]">{m.timer}</td>
+                <td class="py-3.5 px-4 text-slate-300">{m.strikes}</td>
+                <td class="py-3.5 px-4 font-bold text-[#ffd166]">{m.scoring}</td>
+                <td class="py-3.5 px-4 text-[#8fa3c4] font-sans text-xs">{m.leaderboard}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Detailed Mode Breakdown Cards -->
+    <div class="space-y-6">
+      {modes.map(m => (
+        <div class="p-6 sm:p-8 rounded-3xl bg-[#0a1d36] border border-white/10 space-y-3 shadow-lg">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-white/10 pb-3">
+            <h3 class="text-xl font-bold text-white">{m.name}</h3>
+            <span class={`text-[10px] font-mono px-2.5 py-0.5 rounded-full border ${m.badgeColor}`}>
+              {m.badge}
+            </span>
+          </div>
+          <p class="text-xs sm:text-sm text-[#8fa3c4] leading-relaxed">
+            {m.desc}
+          </p>
+        </div>
+      ))}
+    </div>
+
+    <!-- Navigation Footer -->
+    <div class="border-t border-white/10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono">
+      <a href="/" class="text-[#4de3ff] hover:underline flex items-center gap-1">
+        <span>← Back to The Endless Dive Arena</span>
+      </a>
+      <div class="flex items-center gap-4 text-[#8fa3c4]">
+        <a href="/depth-zones/" class="hover:text-white">Ocean Depth Zones ↗</a>
+        <a href="/survival-guide/" class="hover:text-white">Survival Guide ↗</a>
+        <a href="/high-scores/" class="hover:text-white">Hall of Fame ↗</a>
+      </div>
+    </div>
+
+  </div>
+</Layout>

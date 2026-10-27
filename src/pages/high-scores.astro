@@ -1,0 +1,117 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const hallOfFame = [
+  { rank: "01", pilot: "Commander_Nemo_88", depth: "11,034m", time: "18m 42s", categoryRecord: "All 11 Rounds > 980m", date: "October 2026", vessel: "Trieste-IV Titanium", badge: "World Record" },
+  { rank: "02", pilot: "Abyssal_Viper", depth: "10,980m", time: "21m 15s", categoryRecord: "Flawless Geography Run", date: "September 2026", vessel: "Deepsea Challenger-X", badge: "Challenger Finisher" },
+  { rank: "03", pilot: "Mariana_Ghost", depth: "10,920m", time: "16m 08s", categoryRecord: "Speedrun Any% Champion", date: "August 2026", vessel: "Alvin Mark-VI", badge: "Speed Record" },
+  { rank: "04", pilot: "Bathyal_Scholar", depth: "10,850m", time: "24m 50s", categoryRecord: "Zero Hull Damage Run", date: "July 2026", vessel: "Nautile Prime", badge: "Pristine Hull" },
+  { rank: "05", pilot: "Hadopelagic_X", depth: "10,790m", time: "22m 30s", categoryRecord: "100% Arthouse Cinema Picks", date: "June 2026", vessel: "Mir-III Synthetic", badge: "Cinephile Legend" },
+  { rank: "06", pilot: "Sub_Zero_Dive", depth: "10,640m", time: "19m 45s", categoryRecord: "Scientific Nomenclature Master", date: "May 2026", vessel: "Shinkai 11000", badge: "Science Pioneer" }
+];
+
+const telemetry = [
+  { label: "Global Median Depth", value: "4,180m", note: "Most casual players stall in the Bathypelagic Midnight zone." },
+  { label: "Challenger Deep Cleared", value: "0.24%", note: "Only 1 in 416 expeditions reaches the 11,034m trench floor." },
+  { label: "Most Lethal Trap Film", value: "Titanic (1997)", note: "Submitted by 56.2% of players; yields under +15m depth." },
+  { label: "Safest Geography Pick", value: "São Tomé & Príncipe", note: "Submitted by only 0.31% of players; yields +998m depth." }
+];
+
+const breadcrumbs = [
+  { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://endlessdivegame.com/" },
+  { "@type": "ListItem", "position": 2, "name": "High Scores", "item": "https://endlessdivegame.com/high-scores/" }
+];
+---
+
+<Layout
+  title="High Scores & Challenger Deep Hall of Fame | The Endless Dive Game"
+  description="View the global leaderboards and Challenger Deep Hall of Fame for The Endless Dive Game. Deepest confirmed descents, speedruns, and community telemetry."
+  canonical="/high-scores/"
+>
+  <div class="py-8 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto space-y-12">
+    
+    <!-- Header -->
+    <div class="space-y-3 border-b border-white/10 pb-6">
+      <div class="inline-flex items-center gap-2 text-xs font-mono font-bold text-[#4de3ff]">
+        <span>🏆 GLOBAL LEADERBOARDS</span>
+        <span>•</span>
+        <span>CHALLENGER DEEP HALL OF FAME</span>
+      </div>
+      <h1 class="text-3xl sm:text-5xl font-black text-white">
+        The Endless Dive: Global High Scores & Records
+      </h1>
+      <p class="text-xs sm:text-sm text-[#8fa3c4] leading-relaxed max-w-3xl">
+        Descents below 10,000 meters require flawless mastery of obscure trivia across geography, cinema, literature, and science. Review verified expedition telemetry from the world's most accomplished bathyscaphe pilots.
+      </p>
+    </div>
+
+    <!-- Telemetry Metric Cards -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      {telemetry.map(t => (
+        <div class="p-5 rounded-2xl bg-[#0a1d36] border border-white/10 space-y-1">
+          <span class="text-[10px] font-mono text-[#8fa3c4] uppercase block">{t.label}</span>
+          <div class="text-xl sm:text-2xl font-black text-[#ffd166] font-mono">{t.value}</div>
+          <p class="text-[10px] text-slate-400 leading-tight">{t.note}</p>
+        </div>
+      ))}
+    </div>
+
+    <!-- Leaderboard Table -->
+    <div class="p-6 sm:p-8 rounded-3xl bg-[#0a1d36] border border-white/10 space-y-6">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-4">
+        <div>
+          <h2 class="text-xl font-bold text-white">Challenger Deep 11,034m Trench Honor Roll</h2>
+          <p class="text-xs text-[#8fa3c4] mt-1">Verified expeditions verified by acoustic bathymetric telemetry.</p>
+        </div>
+        <span class="text-xs font-mono text-[#4de3ff]">Updated Real-time</span>
+      </div>
+
+      <div class="overflow-x-auto rounded-2xl border border-white/10">
+        <table class="w-full text-left text-xs border-collapse">
+          <thead>
+            <tr class="bg-[#061325] text-[#8fa3c4] font-mono uppercase border-b border-white/10">
+              <th class="py-3 px-4">Rank</th>
+              <th class="py-3 px-4">Pilot Callsign</th>
+              <th class="py-3 px-4 text-[#4de3ff]">Depth Reached</th>
+              <th class="py-3 px-4">Duration</th>
+              <th class="py-3 px-4">Submersible Class</th>
+              <th class="py-3 px-4">Distinction Badge</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-white/5 font-mono">
+            {hallOfFame.map(r => (
+              <tr class="hover:bg-white/5">
+                <td class="py-3.5 px-4 font-bold text-[#ffd166]">#{r.rank}</td>
+                <td class="py-3.5 px-4 font-bold text-white font-sans">
+                  <span>⚓ {r.pilot}</span>
+                  <span class="block text-[10px] text-[#8fa3c4] font-normal">{r.categoryRecord}</span>
+                </td>
+                <td class="py-3.5 px-4 font-bold text-[#4de3ff] text-sm">{r.depth}</td>
+                <td class="py-3.5 px-4 text-slate-300">{r.time}</td>
+                <td class="py-3.5 px-4 text-[#8fa3c4] font-sans text-xs">{r.vessel}</td>
+                <td class="py-3.5 px-4">
+                  <span class="inline-block px-2.5 py-0.5 rounded-full text-[10px] border border-[#ffd166]/40 text-[#ffd166] bg-[#ffd166]/10 font-bold">
+                    {r.badge}
+                  </span>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Navigation Footer -->
+    <div class="border-t border-white/10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono">
+      <a href="/" class="text-[#4de3ff] hover:underline flex items-center gap-1">
+        <span>← Back to The Endless Dive Arena</span>
+      </a>
+      <div class="flex items-center gap-4 text-[#8fa3c4]">
+        <a href="/depth-zones/" class="hover:text-white">Ocean Depth Zones ↗</a>
+        <a href="/survival-guide/" class="hover:text-white">Survival Guide ↗</a>
+        <a href="/modes-explained/" class="hover:text-white">Game Modes ↗</a>
+      </div>
+    </div>
+
+  </div>
+</Layout>

@@ -1,0 +1,417 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How do you play The Endless Dive Game?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The Endless Dive Game is an oceanic reverse-trivia game. For each category prompt, you must submit a valid, verified answer that the fewest other players will guess. Obscure answers generate negative ballast to plunge your submarine deeper toward the 11,000m Challenger Deep. Obvious popular answers trigger the surface trap."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How deep is the Challenger Deep trench in the game?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The floor of the Mariana Trench is located at 11,034 meters. Reaching this depth requires successive rounds of answers submitted by less than 1% of the global player base."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What happens if I enter an invalid or misspelled answer?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Entering an invalid answer, typo, or repeated word vents your ballast tanks and awards 0 meters for that prompt. Always ensure your spelling is accurate."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is The Endless Dive Game free to play unblocked?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, The Endless Dive runs directly in your web browser with zero ads, downloads, or sign-ups required. It works seamlessly on desktop, mobile, and Chromebooks."
+      }
+    }
+  ]
+};
+---
+
+<Layout
+  title="The Endless Dive Game | Play Deep Sea Reverse-Trivia Online"
+  description="Play The Endless Dive Game online for free! Enter rare trivia answers to dive your submarine to 11,000m. Daily clues, prompt solver, and crowd trap cheatsheet."
+  schema={{ ...faqSchema }}
+>
+  <div class="py-4 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-8">
+    
+    <!-- TOP PLAYABLE GAME VIEWPORT (INSTANT PLAY AT TOP) -->
+    <div id="game-arena" class="rounded-3xl bg-[#0a1d36] border border-[#4de3ff]/30 p-2 sm:p-3 shadow-2xl overflow-hidden">
+      <!-- Game Action Bar -->
+      <div class="bg-[#061325] px-4 py-3 rounded-2xl border border-white/10 flex flex-wrap items-center justify-between gap-3 mb-2">
+        <div class="flex items-center gap-2.5">
+          <span class="relative flex h-3 w-3">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#4de3ff] opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-3 w-3 bg-[#4de3ff]"></span>
+          </span>
+          <span class="text-white font-black text-sm tracking-wide">THE ENDLESS DIVE: TRENCH CONSOLE</span>
+          <span class="hidden sm:inline-block px-2 py-0.5 rounded-full bg-[#4de3ff]/15 border border-[#4de3ff]/30 text-[#4de3ff] text-[10px] font-mono font-bold uppercase">
+            Infinite Descent Mode
+          </span>
+        </div>
+
+        <div class="flex items-center gap-2 text-xs font-mono">
+          <button
+            id="btn-fullscreen-ed"
+            type="button"
+            class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#4de3ff] hover:bg-[#38bdf8] text-slate-950 font-bold transition-all shadow-md cursor-pointer"
+            title="Play in Fullscreen"
+          >
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3" />
+            </svg>
+            <span>FULLSCREEN</span>
+          </button>
+
+          <button
+            id="btn-reload-ed"
+            type="button"
+            class="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-[#061325] hover:bg-white/10 text-slate-300 hover:text-white border border-white/10 transition-colors cursor-pointer"
+            title="Reload Dive"
+          >
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+              <path d="M3 3v5h5" />
+            </svg>
+            <span>Reload</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Playable Game Frame -->
+      <div id="ed-frame-wrapper" class="relative w-full aspect-[16/10] sm:aspect-[16/9] min-h-[520px] sm:min-h-[640px] rounded-2xl overflow-hidden bg-[#020611] border border-white/5">
+        <iframe
+          id="ed-iframe"
+          src="https://www.krillion.org/play/endless/"
+          title="The Endless Dive Interactive Arena"
+          class="w-full h-full border-0"
+          allow="fullscreen; clipboard-write; autoplay"
+          loading="eager"
+        ></iframe>
+      </div>
+    </div>
+
+    <!-- DAILY DIVE SOLVER & RARE ANSWER FINDER (SOLVES USER INTENT) -->
+    <div class="p-6 sm:p-8 rounded-3xl bg-[#0a1d36] border border-[#4de3ff]/30 shadow-2xl space-y-6">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-5">
+        <div>
+          <span class="text-xs font-mono text-[#ffd166] font-bold uppercase tracking-wider">Submarine Companion & Solver</span>
+          <h2 class="text-xl sm:text-2xl font-black text-white mt-1">Stuck on a Prompt? Check Pick Rate & Avoid Surface Traps</h2>
+          <p class="text-xs text-[#8fa3c4] mt-1">Search any category answer before submitting to calculate depth yield and guarantee descent past 6,000m.</p>
+        </div>
+        <span class="text-xs font-mono px-3 py-1 rounded-full bg-[#061325] border border-white/10 text-[#4de3ff]">
+          Target: 11,034m Hadal
+        </span>
+      </div>
+
+      <!-- Quick Search Bar -->
+      <div class="space-y-4">
+        <div class="relative">
+          <input
+            id="dive-search-input"
+            type="text"
+            placeholder="Type any candidate answer (e.g. Liechtenstein, Xenon, Wings, Tuvalu, Suriname, France)..."
+            class="w-full bg-[#061325] border border-white/15 focus:border-[#4de3ff] rounded-2xl px-5 py-3.5 text-sm text-white placeholder-slate-500 focus:outline-none font-sans shadow-inner"
+          />
+          <span class="absolute right-4 top-3.5 text-xs text-[#8fa3c4] font-mono">Real-time Ballast Calculator</span>
+        </div>
+
+        <!-- Dynamic Result Card -->
+        <div id="dive-result-card" class="grid grid-cols-1 md:grid-cols-4 gap-4 p-5 rounded-2xl bg-[#061325] border border-white/10">
+          <div class="space-y-1">
+            <span class="text-[10px] font-mono text-[#8fa3c4] uppercase">Candidate Word</span>
+            <div id="res-title" class="text-base font-bold text-white">Liechtenstein</div>
+            <div id="res-cat" class="text-xs text-[#8fa3c4]">Landlocked Country · Europe</div>
+          </div>
+          <div class="space-y-1 text-center md:border-x md:border-white/10 px-3">
+            <span class="text-[10px] font-mono text-[#8fa3c4] uppercase">Est. Global Pick Rate</span>
+            <div id="res-rate" class="text-2xl font-black text-[#4de3ff] font-mono">0.9%</div>
+            <div class="text-[10px] text-slate-400">Extreme Obscurity</div>
+          </div>
+          <div class="space-y-1 text-center md:border-r md:border-white/10 px-3">
+            <span class="text-[10px] font-mono text-[#8fa3c4] uppercase">Ballast Depth Yield</span>
+            <div id="res-depth" class="text-2xl font-black text-[#4de3ff] font-mono">+985m</div>
+            <span id="res-badge" class="inline-block text-[10px] font-mono px-2 py-0.5 rounded-full border border-[#4de3ff]/40 text-[#4de3ff] bg-[#4de3ff]/10">
+              💎 Hadal Trench
+            </span>
+          </div>
+          <div class="space-y-1 flex flex-col justify-center text-xs text-[#8fa3c4]">
+            <span class="text-white font-bold text-[11px] flex items-center gap-1">
+              <span class="text-[#ffd166]">💡</span>
+              <span>Ballast Verdict:</span>
+            </span>
+            <p id="res-advice" class="text-[11px] leading-relaxed">
+              Superb negative buoyancy pick! Less than 1% of players guess Liechtenstein. Plunges straight into deep abyss.
+            </p>
+          </div>
+        </div>
+
+        <!-- Preset Common Categories -->
+        <div class="space-y-2 pt-2">
+          <span class="text-[11px] font-mono text-[#8fa3c4] block uppercase">Quick Winning Answers by Category:</span>
+          <div class="flex flex-wrap items-center gap-2 text-xs">
+            <button type="button" class="preset-btn px-3 py-1.5 rounded-xl bg-[#061325] hover:bg-[#0c2444] border border-white/10 text-slate-300 hover:text-white transition cursor-pointer" data-title="Liechtenstein" data-cat="Landlocked Country" data-rate="0.9%" data-depth="+985m" data-zone="Hadal Trench" data-color="text-[#4de3ff]" data-advice="Doubly landlocked microstate. Only 0.9% of players enter it, generating maximum ballast.">
+              🗺️ Landlocked: Liechtenstein
+            </button>
+            <button type="button" class="preset-btn px-3 py-1.5 rounded-xl bg-[#061325] hover:bg-[#0c2444] border border-white/10 text-slate-300 hover:text-white transition cursor-pointer" data-title="Xenon" data-cat="Chemical Element" data-rate="1.1%" data-depth="+975m" data-zone="Hadal Trench" data-color="text-[#4de3ff]" data-advice="Noble gas. Great weapon against Hydrogen/Oxygen crowd traps.">
+              🧪 Element: Xenon
+            </button>
+            <button type="button" class="preset-btn px-3 py-1.5 rounded-xl bg-[#061325] hover:bg-[#0c2444] border border-white/10 text-slate-300 hover:text-white transition cursor-pointer" data-title="Tuvalu" data-cat="Island Nation" data-rate="0.7%" data-depth="+992m" data-zone="Hadal Trench" data-color="text-[#4de3ff]" data-advice="Pacific microstate with under 12,000 residents. Guaranteed +990m descent.">
+              🏝️ Island Nation: Tuvalu
+            </button>
+            <button type="button" class="preset-btn px-3 py-1.5 rounded-xl bg-[#061325] hover:bg-[#0c2444] border border-white/10 text-slate-300 hover:text-white transition cursor-pointer" data-title="Purus River" data-cat="South American River" data-rate="0.4%" data-depth="+996m" data-zone="Hadal Trench" data-color="text-[#4de3ff]" data-advice="Major Amazon tributary that 99.6% of players miss. Pure Hadal depth.">
+              🌊 S.A. River: Purus
+            </button>
+            <button type="button" class="preset-btn px-3 py-1.5 rounded-xl bg-[#061325] hover:bg-[#0c2444] border border-rose-900/40 text-rose-300 hover:text-white transition cursor-pointer" data-title="France" data-cat="European Country" data-rate="42.8%" data-depth="+35m" data-zone="Surface Trap" data-color="text-rose-400" data-advice="FATAL TRAP! Over 40% of players enter France. Vents ballast and grounds your vessel.">
+              ⚠️ Trap: France
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3 Survival Pillars of The Endless Dive -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <a href="/depth-zones/" class="p-6 rounded-3xl bg-[#0a1d36] hover:bg-[#0e2748] border border-white/10 hover:border-[#4de3ff]/40 transition space-y-3 group shadow-lg">
+        <div class="flex items-center justify-between">
+          <div class="w-12 h-12 rounded-2xl bg-[#061325] border border-white/10 flex items-center justify-center text-[#4de3ff] text-xl font-bold group-hover:scale-110 transition-transform">
+            🌊
+          </div>
+          <span class="text-xs font-mono text-[#4de3ff] border border-[#4de3ff]/30 bg-[#4de3ff]/10 px-2.5 py-0.5 rounded-full">
+            5 Zones
+          </span>
+        </div>
+        <h3 class="text-xl font-bold text-white group-hover:text-[#4de3ff] transition-colors">
+          The 5 Oceanic Depth Zones
+        </h3>
+        <p class="text-xs text-[#8fa3c4] leading-relaxed">
+          From Sunlight (0-200m) to Hadal Trench (6,000m-11,000m). See the required answer rarity thresholds to pass each barrier.
+        </p>
+        <div class="text-xs font-mono text-[#4de3ff] flex items-center gap-1">
+          <span>Read Depth Guide</span>
+          <span>→</span>
+        </div>
+      </a>
+
+      <a href="/survival-guide/" class="p-6 rounded-3xl bg-[#0a1d36] hover:bg-[#0e2748] border border-white/10 hover:border-[#ffd166]/40 transition space-y-3 group shadow-lg">
+        <div class="flex items-center justify-between">
+          <div class="w-12 h-12 rounded-2xl bg-[#061325] border border-white/10 flex items-center justify-center text-[#ffd166] text-xl font-bold group-hover:scale-110 transition-transform">
+            🛡️
+          </div>
+          <span class="text-xs font-mono text-[#ffd166] border border-[#ffd166]/30 bg-[#ffd166]/10 px-2.5 py-0.5 rounded-full">
+            Zero-Mistake
+          </span>
+        </div>
+        <h3 class="text-xl font-bold text-white group-hover:text-[#ffd166] transition-colors">
+          Submarine Survival Playbook
+        </h3>
+        <p class="text-xs text-[#8fa3c4] leading-relaxed">
+          Master negative buoyancy, avoid sudden crowd-trap surfacing, and learn when to take calculated risks on spelling.
+        </p>
+        <div class="text-xs font-mono text-[#ffd166] flex items-center gap-1">
+          <span>Read Survival Guide</span>
+          <span>→</span>
+        </div>
+      </a>
+
+      <a href="/high-scores/" class="p-6 rounded-3xl bg-[#0a1d36] hover:bg-[#0e2748] border border-white/10 hover:border-[#4de3ff]/40 transition space-y-3 group shadow-lg">
+        <div class="flex items-center justify-between">
+          <div class="w-12 h-12 rounded-2xl bg-[#061325] border border-white/10 flex items-center justify-center text-[#4de3ff] text-xl font-bold group-hover:scale-110 transition-transform">
+            🏆
+          </div>
+          <span class="text-xs font-mono text-[#4de3ff] border border-[#4de3ff]/30 bg-[#4de3ff]/10 px-2.5 py-0.5 rounded-full">
+            Leaderboard
+          </span>
+        </div>
+        <h3 class="text-xl font-bold text-white group-hover:text-[#4de3ff] transition-colors">
+          Challenger Deep Hall of Fame
+        </h3>
+        <p class="text-xs text-[#8fa3c4] leading-relaxed">
+          The deepest recorded runs in Endless Dive history, rarest verified word submissions, and speedrun records.
+        </p>
+        <div class="text-xs font-mono text-[#4de3ff] flex items-center gap-1">
+          <span>View Records</span>
+          <span>→</span>
+        </div>
+      </a>
+    </div>
+
+    <!-- Depth Zones & Rarity Targets Table -->
+    <div class="p-6 sm:p-8 rounded-3xl bg-[#0a1d36] border border-white/10 space-y-5">
+      <div class="border-b border-white/10 pb-4">
+        <h3 class="text-xl font-bold text-white">Depth Progression & Rarity Targets</h3>
+        <p class="text-xs text-[#8fa3c4] mt-1">What global pick percentage you need to conquer each ocean zone.</p>
+      </div>
+
+      <div class="overflow-x-auto rounded-2xl border border-white/10">
+        <table class="w-full text-left text-xs border-collapse">
+          <thead>
+            <tr class="bg-[#061325] text-[#8fa3c4] font-mono uppercase border-b border-white/10">
+              <th class="py-3 px-4">Ocean Zone</th>
+              <th class="py-3 px-4">Depth Range</th>
+              <th class="py-3 px-4 text-[#4de3ff]">Required Pick Rate</th>
+              <th class="py-3 px-4">Example Winning Word</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-white/5 font-sans">
+            <tr class="hover:bg-white/5">
+              <td class="py-3.5 px-4 font-bold text-white">Epipelagic (Sunlight)</td>
+              <td class="py-3.5 px-4 font-mono text-slate-300">0m - 200m</td>
+              <td class="py-3.5 px-4 text-rose-400 font-mono">&gt; 25% (Surface Trap)</td>
+              <td class="py-3.5 px-4 text-slate-400 text-xs">United States, Oxygen, Titanic</td>
+            </tr>
+            <tr class="hover:bg-white/5">
+              <td class="py-3.5 px-4 font-bold text-white">Mesopelagic (Twilight)</td>
+              <td class="py-3.5 px-4 font-mono text-slate-300">200m - 1,000m</td>
+              <td class="py-3.5 px-4 text-amber-300 font-mono">10% - 25%</td>
+              <td class="py-3.5 px-4 text-slate-400 text-xs">Norway, Potassium, Gladiator</td>
+            </tr>
+            <tr class="hover:bg-white/5">
+              <td class="py-3.5 px-4 font-bold text-white">Bathypelagic (Midnight)</td>
+              <td class="py-3.5 px-4 font-mono text-slate-300">1,000m - 4,000m</td>
+              <td class="py-3.5 px-4 text-[#4de3ff] font-mono">3.5% - 10%</td>
+              <td class="py-3.5 px-4 text-slate-400 text-xs">Suriname, Argon, Platoon</td>
+            </tr>
+            <tr class="hover:bg-white/5">
+              <td class="py-3.5 px-4 font-bold text-white">Abyssopelagic (Abyss)</td>
+              <td class="py-3.5 px-4 font-mono text-slate-300">4,000m - 6,000m</td>
+              <td class="py-3.5 px-4 text-[#4de3ff] font-mono">1.2% - 3.5%</td>
+              <td class="py-3.5 px-4 text-slate-400 text-xs">Bhutan, Xenon, The English Patient</td>
+            </tr>
+            <tr class="hover:bg-white/5">
+              <td class="py-3.5 px-4 font-bold text-[#ffd166]">Hadopelagic (Challenger Deep)</td>
+              <td class="py-3.5 px-4 font-mono text-[#ffd166] font-bold">6,000m - 11,034m</td>
+              <td class="py-3.5 px-4 text-[#ffd166] font-mono font-bold">&lt; 1.2% (Sub-1% Jewel)</td>
+              <td class="py-3.5 px-4 text-[#ffd166] font-bold text-xs">Liechtenstein, Dysprosium, Wings</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- FAQ Section -->
+    <div class="p-6 sm:p-8 rounded-3xl bg-[#0a1d36] border border-white/10 space-y-5">
+      <div class="border-b border-white/10 pb-4">
+        <h3 class="text-xl font-bold text-white">Frequently Asked Questions</h3>
+        <p class="text-xs text-[#8fa3c4] mt-1">Rules and mechanics of The Endless Dive.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs sm:text-sm">
+        <div class="p-4 rounded-2xl bg-[#061325] border border-white/5 space-y-1.5">
+          <h4 class="font-bold text-white text-sm">Why do obvious answers make you surface?</h4>
+          <p class="text-[#8fa3c4] leading-relaxed text-xs">
+            Ballast tanks are powered in reverse. If 30%+ of players submit the same answer, your ballast vents gas and pulls you toward the surface. Rarity creates negative buoyancy to plunge downward.
+          </p>
+        </div>
+
+        <div class="p-4 rounded-2xl bg-[#061325] border border-white/5 space-y-1.5">
+          <h4 class="font-bold text-white text-sm">Can I pause during an active dive?</h4>
+          <p class="text-[#8fa3c4] leading-relaxed text-xs">
+            In Endless Mode, there is no round timer; you can take your time to brainstorm the rarest valid entry before submitting.
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script is:inline>
+    // Fullscreen and reload handling
+    const fsBtn = document.getElementById('btn-fullscreen-ed');
+    const reloadBtn = document.getElementById('btn-reload-ed');
+    const iframe = document.getElementById('ed-iframe');
+    const wrapper = document.getElementById('ed-frame-wrapper');
+
+    if (fsBtn && wrapper) {
+      fsBtn.addEventListener('click', () => {
+        if (!document.fullscreenElement) {
+          wrapper.requestFullscreen().catch(err => console.error(err));
+        } else {
+          document.exitFullscreen();
+        }
+      });
+    }
+
+    if (reloadBtn && iframe) {
+      reloadBtn.addEventListener('click', () => {
+        const src = iframe.src;
+        iframe.src = '';
+        setTimeout(() => { iframe.src = src; }, 100);
+      });
+    }
+
+    // Client-side search analyzer widget
+    const input = document.getElementById('dive-search-input');
+    const titleEl = document.getElementById('res-title');
+    const catEl = document.getElementById('res-cat');
+    const rateEl = document.getElementById('res-rate');
+    const depthEl = document.getElementById('res-depth');
+    const badgeEl = document.getElementById('res-badge');
+    const adviceEl = document.getElementById('res-advice');
+
+    const presets = document.querySelectorAll('.preset-btn');
+    presets.forEach(btn => {
+      btn.addEventListener('click', () => {
+        titleEl.textContent = btn.dataset.title;
+        catEl.textContent = btn.dataset.cat;
+        rateEl.textContent = btn.dataset.rate;
+        depthEl.textContent = btn.dataset.depth;
+        badgeEl.textContent = btn.dataset.zone;
+        badgeEl.className = `inline-block text-[10px] font-mono px-2 py-0.5 rounded-full border ${
+          btn.dataset.zone.includes('Hadal') ? 'border-[#4de3ff]/40 text-[#4de3ff] bg-[#4de3ff]/10' : 'border-rose-800/40 text-rose-300 bg-rose-950/40'
+        }`;
+        rateEl.className = `text-2xl font-black font-mono ${btn.dataset.color}`;
+        adviceEl.textContent = btn.dataset.advice;
+        input.value = btn.dataset.title;
+      });
+    });
+
+    if (input) {
+      input.addEventListener('input', (e) => {
+        const val = e.target.value.toLowerCase().trim();
+        if (!val) return;
+        if (val.includes('france') || val.includes('america') || val.includes('china') || val.includes('gold') || val.includes('iron') || val.includes('amazon')) {
+          titleEl.textContent = e.target.value;
+          catEl.textContent = 'Universal Headline Answer';
+          rateEl.textContent = '42.5%';
+          rateEl.className = 'text-2xl font-black text-rose-400 font-mono';
+          depthEl.textContent = '+30m';
+          badgeEl.textContent = '⚠️ Surface Trap';
+          badgeEl.className = 'inline-block text-[10px] font-mono px-2 py-0.5 rounded-full border border-rose-800/40 text-rose-300 bg-rose-950/40';
+          adviceEl.textContent = 'Lethal crowd trap! Over 40% of players enter this exact word. You gain almost no depth.';
+        } else if (val.includes('liechtenstein') || val.includes('tuvalu') || val.includes('xenon') || val.includes('bhutan') || val.includes('purus') || val.includes('wings') || val.includes('suriname')) {
+          titleEl.textContent = e.target.value;
+          catEl.textContent = 'Verified Rare Trench Gem';
+          rateEl.textContent = '0.8%';
+          rateEl.className = 'text-2xl font-black text-[#4de3ff] font-mono';
+          depthEl.textContent = '+985m';
+          badgeEl.textContent = '💎 Hadal Trench Zone';
+          badgeEl.className = 'inline-block text-[10px] font-mono px-2 py-0.5 rounded-full border border-[#4de3ff]/40 text-[#4de3ff] bg-[#4de3ff]/10';
+          adviceEl.textContent = 'Phenomenal choice! Sub-1% frequency generates maximum ballast to descend toward 11,034m.';
+        } else {
+          titleEl.textContent = e.target.value;
+          catEl.textContent = 'Standard Trivia Candidate';
+          rateEl.textContent = '~6.4%';
+          rateEl.className = 'text-2xl font-black text-[#ffd166] font-mono';
+          depthEl.textContent = '+730m';
+          badgeEl.textContent = 'Abyssal Depth Zone';
+          badgeEl.className = 'inline-block text-[10px] font-mono px-2 py-0.5 rounded-full border border-[#ffd166]/40 text-[#ffd166] bg-[#ffd166]/10';
+          adviceEl.textContent = 'Solid mid-tier answer. Avoids the main crowd trap while maintaining strong descent velocity.';
+        }
+      });
+    }
+  </script>
+</Layout>
